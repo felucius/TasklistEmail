@@ -75,8 +75,10 @@ public class StartScreen extends AppCompatActivity {
                 subject = (EditText) findViewById(R.id.txtSubject);
                 message = (EditText) findViewById(R.id.txtMessage);
                 if(!subject.getText().toString().equals("") && !message.getText().toString().equals("")){
+                    // Add a task with the values from the text fields.
                     Task task = new Task(subject.getText().toString(), message.getText().toString(), new Date());
                     database = new Database(context);
+                    // Adding the task to the database.
                     database.addTask(task);
                 }else{
                     System.out.println("Fill in all the fields.");

@@ -52,6 +52,9 @@ public class Database extends SQLiteOpenHelper{
     }
 
     // Methods
+    /*
+    Adding a task to the database.
+     */
     public void addTask(Task task){
         SQLiteDatabase database = getWritableDatabase();
 
@@ -63,22 +66,40 @@ public class Database extends SQLiteOpenHelper{
         database.close();
     }
 
+    /*
+    Retrieving all tasks from the database
+     */
     public List<Task> getTasks(){
         List<Task> tasks = new ArrayList<>();
         Task task = null;
-        // Select all QUery
+        // Select all Query.
         String sql = "select * from " + TABLE;
 
         SQLiteDatabase database = getWritableDatabase();
+        // Executing query.
         Cursor cursor = database.rawQuery(sql, null);
 
         // Getting all values.
         if(cursor.moveToFirst()){
             do{
-                task = new Task(cursor.getString(0), cursor.getString(1), new Date());
+                task = new Task(cursor.getString(1), cursor.getString(2), new Date());
+                task.setTaskID(Integer.parseInt(cursor.getString(0)));
+                System.out.println("TASK ID: " + task.getTaskID());
                 tasks.add(task);
             }while (cursor.moveToNext());
         }
         return tasks;
+    }
+
+    /*
+    Removing a task.
+     */
+    public void removeTask(Integer id){
+        Task task = null;
+        String sql = "delete from " + TABLE + " where " + taskID + " = " + id;
+
+        SQLiteDatabase database = getWritableDatabase();
+        database.execSQL(sql);
+        database.close();
     }
 }

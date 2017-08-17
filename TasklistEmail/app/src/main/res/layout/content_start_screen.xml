@@ -21,8 +21,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Subject"
+            android:hint="Subject..."
             android:inputType="textPersonName"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="20sp"
             tools:layout_editor_absoluteX="56dp"
             tools:layout_editor_absoluteY="99dp" />
 
@@ -32,28 +34,57 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Message"
+            android:hint="Message..."
             android:inputType="textPersonName"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="20sp"
             tools:layout_editor_absoluteX="56dp"
             tools:layout_editor_absoluteY="176dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/white"/>
 
         <Button
             android:id="@+id/btnShowTasks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Show tasks" />
+            android:background="@android:color/holo_blue_dark"
+            android:text="Show tasks"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/white"/>
 
         <Button
             android:id="@+id/btnAddTaskDatabase"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add task database" />
+            android:background="@android:color/holo_blue_dark"
+            android:text="Add task database"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/white"/>
 
         <Button
             android:id="@+id/btnAddTaskEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/holo_blue_dark"
             android:text="Add task email"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
             tools:layout_editor_absoluteX="147dp"
             tools:layout_editor_absoluteY="387dp" />
     </LinearLayout>
