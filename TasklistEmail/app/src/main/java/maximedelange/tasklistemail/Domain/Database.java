@@ -6,9 +6,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by M on 8/17/2017.
@@ -17,7 +20,9 @@ import java.util.List;
 public class Database extends SQLiteOpenHelper{
 
     // Fields
-    private static final Integer DATABASE_VERSION = 1;
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yy", Locale.ENGLISH);
+
+    private static final Integer DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "tasklist.db";
 
     // Database table.
@@ -26,6 +31,7 @@ public class Database extends SQLiteOpenHelper{
     private static final String taskSubject = "taskSubject";
     private static final String taskMessage = "taskMessage";
     private static final String taskDate = "taskDate";
+    private static final String taskEndDate = "taskEndDate";
 
     public Database(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -38,7 +44,8 @@ public class Database extends SQLiteOpenHelper{
                 + taskID + " integer primary key autoincrement,"
                 + taskSubject + " text,"
                 + taskMessage + " text,"
-                + taskDate + "date" + ")";
+                + taskDate + "date,"
+                + taskEndDate + ")";
         sqLiteDatabase.execSQL(sql);
     }
 
@@ -61,6 +68,9 @@ public class Database extends SQLiteOpenHelper{
         ContentValues values = new ContentValues();
         values.put(taskSubject, task.getSubject());
         values.put(taskMessage, task.getMessage());
+        System.out.println("End date format: " + task.getEndDate());
+        String date = simpleDateFormat.format(task.getEndDate());
+        values.put(taskEndDate, date);
 
         database.insert(TABLE, null, values);
         database.close();
@@ -82,7 +92,16 @@ public class Database extends SQLiteOpenHelper{
         // Getting all values.
         if(cursor.moveToFirst()){
             do{
-                task = new Task(cursor.getString(1), cursor.getString(2), new Date());
+                System.out.println("DATE END TASK: " + cursor.getString(4));
+
+                Date taskEndDate = null;
+                try {
+                    taskEndDate = new  java.sql.Date(simpleDateFormat.parse(cursor.getString(4)).getTime());
+                }catch (ParseException parseEx){
+                    parseEx.printStackTrace();
+                }
+
+                task = new Task(cursor.getString(1), cursor.getString(2), new Date(), taskEndDate);
                 task.setTaskID(Integer.parseInt(cursor.getString(0)));
                 System.out.println("TASK ID: " + task.getTaskID());
                 tasks.add(task);

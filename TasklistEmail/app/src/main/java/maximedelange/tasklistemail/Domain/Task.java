@@ -12,12 +12,18 @@ public class Task {
     private String subject = null;
     private String message = null;
     private Date dateCreated = null;
+    private Date endDate = null;
 
     // Constructor
-    public Task(String subject, String message, Date dateCreated){
+    public Task(String subject, String message, Date dateCreated, Date endDate){
         this.subject = subject;
         this.message = message;
         this.dateCreated = dateCreated;
+        this.endDate = endDate;
+    }
+
+    public Task(){
+        // Initializing purpose only.
     }
 
     // Methods
@@ -37,6 +43,10 @@ public class Task {
         this.dateCreated = dateCreated;
     }
 
+    public void setEndDate(Date endDate){
+        this.endDate = endDate;
+    }
+
     public Integer getTaskID(){
         return this.taskID;
     }
@@ -51,6 +61,10 @@ public class Task {
 
     public Date getDateCreated(){
         return this.dateCreated;
+    }
+
+    public Date getEndDate(){
+        return this.endDate;
     }
 
     @Override
