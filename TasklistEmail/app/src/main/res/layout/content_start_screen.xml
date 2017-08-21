@@ -41,17 +41,6 @@
             tools:layout_editor_absoluteX="56dp"
             tools:layout_editor_absoluteY="176dp" />
 
-        <Button
-            android:id="@+id/btnAddDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.03"
-            android:background="@android:color/holo_blue_dark"
-            android:text="Add end date"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
         <EditText
             android:id="@+id/txtAddDate"
             android:layout_width="match_parent"

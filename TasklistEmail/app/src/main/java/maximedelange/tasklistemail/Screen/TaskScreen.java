@@ -18,7 +18,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import maximedelange.tasklistemail.Domain.Database;
@@ -86,9 +88,14 @@ public class TaskScreen extends AppCompatActivity {
         spinnerTasks.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+
                 selectedTask = (Task) adapterView.getItemAtPosition(position);
-                showTasks.setText("Date created:" + selectedTask.getDateCreated() + "\n\n"
-                        + "End date: " + selectedTask.getEndDate() + "\n\n"
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yy");
+                String createdDate = simpleDateFormat.format(selectedTask.getDateCreated().getTime());
+                String endDate = simpleDateFormat.format(selectedTask.getEndDate().getTime());
+
+                showTasks.setText("Date created: " + createdDate + "\n\n"
+                        + "End date: " + endDate + "\n\n"
                         + "Message: " + selectedTask.getMessage());
             }
 

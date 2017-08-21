@@ -33,7 +33,6 @@ public class StartScreen extends AppCompatActivity {
     private EditText subject = null;
     private EditText message = null;
     private EditText addDate = null;
-    private Button btnAddDate = null;
     private Mail mail = null;
     private Database database = null;
     private Context context = this;
@@ -175,7 +174,7 @@ public class StartScreen extends AppCompatActivity {
     }
 
     public void setDateText(){
-        simpleDateFormat = new SimpleDateFormat("dd/MM/yy", Locale.ENGLISH);
+        simpleDateFormat = new SimpleDateFormat("dd/MM/yy");
         addDate.setText(simpleDateFormat.format(calendar.getTime()));
     }
 
