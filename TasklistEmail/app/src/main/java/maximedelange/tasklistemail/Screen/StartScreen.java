@@ -3,7 +3,9 @@ package maximedelange.tasklistemail.Screen;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +22,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import maximedelange.tasklistemail.Domain.CalendarEvent;
 import maximedelange.tasklistemail.Domain.Database;
 import maximedelange.tasklistemail.Domain.Mail;
 import maximedelange.tasklistemail.Domain.Task;
@@ -86,6 +89,7 @@ public class StartScreen extends AppCompatActivity {
     private void addTaskToDatabase(){
         addTask = (Button) findViewById(R.id.btnAddTaskDatabase);
         addTask.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
                 Task taskHolder = new Task();
@@ -100,6 +104,9 @@ public class StartScreen extends AppCompatActivity {
                     }
                     // Add a task with the values from the text fields.
                     Task task = new Task(subject.getText().toString(), message.getText().toString(), new Date(), taskEndDate);
+
+                    // Add the task to the phone calendar.
+                    addCalendarEvent();
                     database = new Database(context);
                     // Adding the task to the database.
                     database.addTask(task);
@@ -187,5 +194,12 @@ public class StartScreen extends AppCompatActivity {
 
         }
     };
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void addCalendarEvent(){
+        CalendarEvent calendarEvent = new CalendarEvent();
+        Intent sendCalendarEvent = calendarEvent.sendCalendarEvent("title", "Geldrop", "Description");
+        startActivity(sendCalendarEvent);
+    }
 
 }
