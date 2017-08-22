@@ -77,7 +77,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/holo_blue_dark"
-            android:text="Add task database"
+            android:text="Add task"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/white" />
+
+        <Button
+            android:id="@+id/btnAddCalendar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.19"
+            android:background="@android:color/holo_blue_dark"
+            android:text="add to calendar"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -92,7 +108,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/holo_blue_dark"
-            android:text="Add task email"
+            android:text="Add to email"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold"

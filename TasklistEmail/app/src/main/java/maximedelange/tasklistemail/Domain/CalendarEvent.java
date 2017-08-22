@@ -6,6 +6,9 @@ import android.os.Build;
 import android.provider.CalendarContract;
 import android.support.annotation.RequiresApi;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by M on 8/22/2017.
  */
@@ -20,7 +23,7 @@ public class CalendarEvent {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public Intent sendCalendarEvent(String title, String eventLocation, String description){
+    public Intent sendCalendarEvent(String title, String eventLocation, String description, Date calendarDate){
         sendCalendarEvent = new Intent(Intent.ACTION_INSERT);
         sendCalendarEvent.setData(CalendarContract.Events.CONTENT_URI);
 
@@ -31,10 +34,9 @@ public class CalendarEvent {
         sendCalendarEvent.putExtra(CalendarContract.Events.DESCRIPTION, description);
 
         // Adding dates and times tro the calendar event.
-        GregorianCalendar gregorianCalendar = new GregorianCalendar(2017, 7, 24);
         sendCalendarEvent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
-        sendCalendarEvent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, gregorianCalendar.getTimeInMillis());
-        sendCalendarEvent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, gregorianCalendar.getTimeInMillis());
+        sendCalendarEvent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, calendarDate.getTime());
+        sendCalendarEvent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, calendarDate.getTime());
 
         return sendCalendarEvent;
     }

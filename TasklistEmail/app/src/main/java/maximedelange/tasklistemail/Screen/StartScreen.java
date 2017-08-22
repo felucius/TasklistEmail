@@ -59,6 +59,7 @@ public class StartScreen extends AppCompatActivity {
         addTaskToDatabase();
         goToTasks();
         addDate();
+        addToCalendar();
     }
 
     @Override
@@ -105,8 +106,6 @@ public class StartScreen extends AppCompatActivity {
                     // Add a task with the values from the text fields.
                     Task task = new Task(subject.getText().toString(), message.getText().toString(), new Date(), taskEndDate);
 
-                    // Add the task to the phone calendar.
-                    addCalendarEvent();
                     database = new Database(context);
                     // Adding the task to the database.
                     database.addTask(task);
@@ -143,6 +142,17 @@ public class StartScreen extends AppCompatActivity {
                 }else{
                     System.out.println("Fill in all the fields.");
                 }
+            }
+        });
+    }
+
+    public void addToCalendar(){
+        goTo =  (Button) findViewById(R.id.btnAddCalendar);
+        goTo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Add the task to the phone calendar.
+                addCalendarEvent();
             }
         });
     }
@@ -198,8 +208,21 @@ public class StartScreen extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void addCalendarEvent(){
         CalendarEvent calendarEvent = new CalendarEvent();
-        Intent sendCalendarEvent = calendarEvent.sendCalendarEvent("title", "Geldrop", "Description");
-        startActivity(sendCalendarEvent);
+        subject = (EditText) findViewById(R.id.txtSubject);
+        message = (EditText) findViewById(R.id.txtMessage);
+        if(!subject.getText().toString().equals("") && !message.getText().toString().equals("") && !addDate.getText().toString().equals("")) {
+            // Parsing the date from the input text to an actual date object.
+            try {
+                taskEndDate = simpleDateFormat.parse(addDate.getText().toString());
+            } catch (ParseException parseEx) {
+                parseEx.printStackTrace();
+            }
+
+            Intent sendCalendarEvent = calendarEvent.sendCalendarEvent(subject.getText().toString(), "Geldrop", message.getText().toString(), taskEndDate);
+            startActivity(sendCalendarEvent);
+        }else{
+            System.out.println("Fill in all the fields.");
+        }
     }
 
 }
